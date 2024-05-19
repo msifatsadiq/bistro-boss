@@ -2,13 +2,19 @@ import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../providers/AuthProvider";
 import { useContext } from "react";
+import loginImg from '../../assets/others/authentication2.png';
+import bgImg from '../../assets/others/authentication.png';
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 
 const SignUp = () => {
 
-    const { register, handleSubmit, formState: { errors }, } = useForm();
+    const { register, handleSubmit, reset, formState: { errors }, } = useForm();
 
-    const { createUser } = useContext(AuthContext);
+    const { createUser, updateUserProfile } = useContext(AuthContext);
+
+    const navigate = useNavigate()
 
 
     const onSubmit = handleSubmit((data) => {
@@ -17,20 +23,32 @@ const SignUp = () => {
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
+                updateUserProfile(data.name, data.photoURL)
+                    .then(() => {
+                        console.log('User profile updated');
+                        reset();
+                        Swal.fire({
+                            title: 'success!',
+                            text: 'User Created Successfully',
+                            icon: 'success',
+                        })
+                        navigate('/')
+                    })
+                    .catch(error => console.log(error))
             })
 
     })
 
     return (
-        <>
+        < >
             <Helmet>
                 <title>Bistro Boss | Sign Up</title>
             </Helmet>
-            <div className="hero min-h-screen bg-base-200">
+            <div className="hero min-h-screen bg-base-200 " style={{ backgroundImage: `url(${bgImg})` }}>
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="text-center lg:text-left">
                         <h1 className="text-5xl font-bold">Sign Up now!</h1>
-                        <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                        <img src={loginImg} alt="Login Illustration" />
                     </div>
                     <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                         <form onSubmit={handleSubmit(onSubmit)} className="card-body">
@@ -40,6 +58,13 @@ const SignUp = () => {
                                 </label>
                                 <input type="text" placeholder="Name" {...register("name", { required: true })} name="name" className="input input-bordered" />
                                 {errors.name && <span className="text-red-600">Name is required</span>}
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Photo URL</span>
+                                </label>
+                                <input type="text" placeholder="photoURL" {...register("photoURL", { required: true })} name="photoURL" className="input input-bordered" />
+                                {errors.name && <span className="text-red-600">photoURL is required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
