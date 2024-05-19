@@ -8,6 +8,7 @@ const Navbar = () => {
         <li><a>DASHBOARD</a></li>
         <li><Link to='/menu'>OUR MENU</Link></li>
         <li><Link to='/order/salad'>ORDER</Link></li>
+        <li><Link to='/login'>LOGIN</Link></li>
     </>
     return (
         <div className="navbar bg-black text-white w-10/12 fixed z-10 bg-opacity-30">
