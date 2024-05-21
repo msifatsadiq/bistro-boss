@@ -29,13 +29,15 @@ const Navbar = () => {
         <li><Link to='/order/salad'>ORDER</Link></li>
         <li><Link to='/secret'>SECRET</Link></li>
 
-
+        <li>
+            <Link to='/dashboard/cart' className="btn">
+                <FaShoppingCart className="mr-2 text-2xl"></FaShoppingCart>
+                <div className="badge badge-secondary">+ {cart.length}</div>
+            </Link>
+        </li>
         {
             user ? <>
-                <button className="btn">
-                    <FaShoppingCart className="mr-2 text-2xl"></FaShoppingCart>
-                    <div className="badge badge-secondary">+ {cart.length}</div>
-                </button>
+
                 {/* <span>{user?.displayName}</span> */}
                 <button onClick={handelLogOut} className="btn btn-active btn-ghost">LOGOUT</button>
             </> : <>
