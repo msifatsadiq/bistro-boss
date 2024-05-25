@@ -5,10 +5,12 @@ import { useContext } from "react";
 import loginImg from '../../assets/others/authentication2.png';
 import bgImg from '../../assets/others/authentication.png';
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 
 const SignUp = () => {
+    const axiosPublic = useAxiosPublic();
 
     const { register, handleSubmit, reset, formState: { errors }, } = useForm();
 
@@ -26,13 +28,25 @@ const SignUp = () => {
                 updateUserProfile(data.name, data.photoURL)
                     .then(() => {
                         console.log('User profile updated');
-                        reset();
-                        Swal.fire({
-                            title: 'success!',
-                            text: 'User Created Successfully',
-                            icon: 'success',
-                        })
-                        navigate('/')
+                        const userInfo = {
+                            name: data.name,
+                            email: data.email,
+
+                        }
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log('user added to DB');
+                                    reset();
+                                    Swal.fire({
+                                        title: 'success!',
+                                        text: 'User Created Successfully',
+                                        icon: 'success',
+                                    })
+                                    navigate('/')
+                                }
+                            })
+
                     })
                     .catch(error => console.log(error))
             })
@@ -102,9 +116,10 @@ const SignUp = () => {
                                     <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                                 </label>
                             </div>
-                            <div className="form-control mt-6">
+                            <div className="form-control mt-6 ">
                                 <button className="btn btn-primary">Sign Up Now </button>
                             </div>
+                            <p className="px-6"><small>New Here? <Link to="/login">Create an account</Link> </small></p>
                         </form>
                     </div>
                 </div>
