@@ -7,6 +7,7 @@ import bgImg from '../../assets/others/authentication.png';
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 
 const SignUp = () => {
@@ -120,6 +121,7 @@ const SignUp = () => {
                                 <button className="btn btn-primary">Sign Up Now </button>
                             </div>
                             <p className="px-6"><small>New Here? <Link to="/login">Create an account</Link> </small></p>
+                            <SocialLogin></SocialLogin>
                         </form>
                     </div>
                 </div>
