@@ -1,4 +1,4 @@
-import { FaCalendar, FaEnvelope, FaGripLinesVertical, FaHamburger, FaHome, FaList, FaShoppingCart, FaStar, FaUtensilSpoon } from "react-icons/fa";
+import { FaAd, FaBook, FaCalendar, FaEnvelope, FaGripLinesVertical, FaHamburger, FaHome, FaList, FaShoppingCart, FaStar, FaUtensilSpoon } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../hooks/useCart";
 
@@ -13,11 +13,12 @@ const Dashboard = () => {
                     {
                         isAdmin ? <>
                         <li>
-                        <NavLink to='/dashboard/cart'> <FaShoppingCart></FaShoppingCart> My Cart ({cart.length})</NavLink>
+                        {/* <NavLink to='/dashboard/cart'> <FaShoppingCart></FaShoppingCart> My Cart ({cart.length})</NavLink> */}
                         <NavLink to='/dashboard/userHome'> <FaHome></FaHome> Admin Home</NavLink>
-                        <NavLink to='/dashboard/reservation'> <FaUtensilSpoon></FaUtensilSpoon> Add Items</NavLink>
-                        <NavLink to='/dashboard/review'> <FaList></FaList> Manage Items</NavLink>
-                        <NavLink to='/dashboard/bookings'> <FaGripLinesVertical></FaGripLinesVertical> My Bookings</NavLink>
+                        <NavLink to='/dashboard/addItems'> <FaUtensilSpoon></FaUtensilSpoon> Add Items</NavLink>
+                        <NavLink to='/dashboard/manageItems'> <FaList></FaList> Manage Items</NavLink>
+                        <NavLink to='/dashboard/bookings'> <FaBook></FaBook> Manage Bookings</NavLink>
+                        <NavLink to='/dashboard/users'> <FaGripLinesVertical></FaGripLinesVertical> All User</NavLink>
                     </li>
                         </>
                             :
